@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nimbus — Weather</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="bg-layer" id="bgLayer"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="app-wrapper">
+
+    <!-- ── TOP BAR ── -->
+    <header class="top-bar">
+      <span class="logo">NIMBUS</span>
+      <div class="top-controls">
+        <button class="icon-btn" id="locationBtn" title="Use my location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+            <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" stroke-dasharray="2 3"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="themeToggle" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── SEARCH ── -->
+    <section class="search-section">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="cityInput" placeholder="Search city…" autocomplete="off" spellcheck="false" />
+        <button id="searchBtn">Go</button>
+      </div>
+
+      <!-- Recent searches -->
+      <div class="recent-wrap" id="recentWrap">
+        <span class="recent-label">Recent</span>
+        <div class="recent-chips" id="recentChips"></div>
+        <button class="clear-btn" id="clearHistory">Clear</button>
+      </div>
+    </section>
+
+    <!-- ── LOADING ── -->
+    <div class="loader-wrap" id="loader">
+      <div class="loader-ring"></div>
+      <p>Fetching weather…</p>
+    </div>
+
+    <!-- ── ERROR ── -->
+    <div class="error-card" id="errorCard">
+      <span class="error-icon">⚠</span>
+      <p id="errorMsg">City not found.</p>
+    </div>
+
+    <!-- ── MAIN CARD ── -->
+    <main class="weather-main" id="weatherMain">
+
+      <div class="primary-card glass-card">
+        <div class="city-row">
+          <div>
+            <h1 class="city-name" id="cityName">—</h1>
+            <p class="date-time" id="dateTime">—</p>
+          </div>
+          <img class="weather-icon-img" id="weatherIcon" src="" alt="" />
+        </div>
+
+        <div class="temp-block">
+          <span class="temp-big" id="tempBig">—</span>
+          <span class="temp-unit">°C</span>
+        </div>
+
+        <p class="condition-label" id="conditionLabel">—</p>
+
+        <div class="stats-row">
+          <div class="stat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <span class="stat-val" id="feelsLike">—</span>
+            <span class="stat-lbl">Feels like</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v6m0 0a4 4 0 1 0 4 4H8a4 4 0 0 0 4-4z"/><path d="M12 8c0 0-4 4-4 7"/>
+            </svg>
+            <span class="stat-val" id="humidity">—</span>
+            <span class="stat-lbl">Humidity</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+            </svg>
+            <span class="stat-val" id="windSpeed">—</span>
+            <span class="stat-lbl">Wind</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 5-DAY FORECAST ── -->
+      <section class="forecast-section">
+        <h2 class="section-title">5-Day Forecast</h2>
+        <div class="forecast-grid" id="forecastGrid"></div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
