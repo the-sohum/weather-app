@@ -14,10 +14,8 @@ A fully responsive, modern weather app built with pure **HTML, CSS, and Vanilla 
 ## ✨ Features
 
 - 🔍 **Search any city** by name with instant results
-- 📍 **Current location weather** using the browser Geolocation API
 - 🌡 **Current temperature**, feels-like, humidity, and wind speed
 - 🌦 **Dynamic backgrounds** that change with weather conditions (sunny, rainy, cloudy, snow, thunder, night)
-- 📅 **5-day forecast** with daily high/low temperatures
 - 🕐 **Recent search history** saved across sessions (up to 6 cities)
 - 🌙 **Dark / Light theme toggle** with saved preference
 - ✨ **Animated particles** — rain drops, snowflakes, or floating dots depending on weather
@@ -67,7 +65,6 @@ All APIs are **completely free** and require **no account or API key**.
 |---|---|---|
 | [Open-Meteo Geocoding](https://open-meteo.com/en/docs/geocoding-api) | City name → latitude/longitude | open-meteo.com |
 | [Open-Meteo Forecast](https://open-meteo.com/en/docs) | Coordinates → weather data | open-meteo.com |
-| [BigDataCloud Reverse Geocode](https://www.bigdatacloud.com/geocoding-api) | Coordinates → city name (used for location button) | bigdatacloud.com |
 
 Weather icons are served from OpenWeatherMap's public CDN — no account needed.
 
@@ -94,10 +91,7 @@ Weather icons are served from OpenWeatherMap's public CDN — no account needed.
 3. Coordinates go to **Open-Meteo Forecast** → returns current weather + 5-day forecast
 4. Data is rendered into the UI, background updates, particles spawn
 
-### Geolocation Flow
-1. User clicks the 📍 button
-2. Browser asks for location permission
-3. If granted, coordinates go to **BigDataCloud** for a city name, then to Open-Meteo for weather
+
 
 ### Weather Codes
 Open-Meteo uses **WMO standard codes** (e.g. `61` = slight rain, `95` = thunderstorm). The app maps all codes to labels, icon codes, and background conditions via a lookup object in `script.js`.
