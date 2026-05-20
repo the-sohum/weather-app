@@ -83,13 +83,6 @@ Weather icons are served from OpenWeatherMap's public CDN — no account needed.
 
 ---
 
-## 📱 Responsive Breakpoints
-
-| Screen | Layout |
-|---|---|
-| Desktop (> 780px) | Full layout, 5-column forecast |
-| Tablet (≤ 580px) | Condensed padding, 3-column forecast |
-| Mobile (≤ 380px) | Single column, compact stats |
 
 ---
 
