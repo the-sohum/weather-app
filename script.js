@@ -1,6 +1,5 @@
 const GEO_API = "https://geocoding-api.open-meteo.com/v1/search";
 const WEATHER_API = "https://api.open-meteo.com/v1/forecast";
-const REVGEO_API = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 const MAX_HISTORY = 6;
 
 const WMO = {
@@ -32,7 +31,6 @@ const WMO = {
 
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
-const locationBtn = document.getElementById("locationBtn");
 const themeToggle = document.getElementById("themeToggle");
 const loader = document.getElementById("loader");
 const errorCard = document.getElementById("errorCard");
@@ -206,30 +204,6 @@ async function fetchByCity(city) {
     );
   }
 }
-
-locationBtn.addEventListener("click", () => {
-  if (!navigator.geolocation) { showError("Geolocation not supported by your browser."); return; }
-
-  navigator.geolocation.getCurrentPosition(
-    async ({ coords: { latitude: lat, longitude: lon } }) => {
-      resetUI();
-      showLoader();
-      try {
-        const rgRes = await fetch(`${REVGEO_API}?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-        const rgData = await rgRes.json();
-        const name = rgData.city || rgData.locality || "Your Location";
-        const country = rgData.countryCode || "";
-
-        await fetchWeatherData(lat, lon, name, country);
-        saveToHistory(name);
-      } catch {
-        hideLoader();
-        showError("Could not fetch weather for your location.");
-      }
-    },
-    () => showError("Location access denied. Enable permissions and try again.")
-  );
-});
 
 searchBtn.addEventListener("click", () => {
   const city = cityInput.value.trim();
