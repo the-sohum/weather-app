@@ -128,7 +128,6 @@ function spawnParticles(type) {
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const SHORT_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function formatDateTime(isoString) {
   const d = new Date(isoString);
@@ -164,35 +163,15 @@ function renderCurrent(data, cityName, country) {
   setBackground(info.main, night);
 }
 
-function renderForecast(data) {
-  const grid = document.getElementById("forecastGrid");
-  grid.innerHTML = "";
-  const { time, weathercode, temperature_2m_max, temperature_2m_min } = data.daily;
 
-  time.slice(0, 5).forEach((dateStr, i) => {
-    const d = new Date(dateStr);
-    const info = WMO[weathercode[i]] || { label: "—", icon: "01d" };
-    const card = document.createElement("div");
-    card.className = "forecast-card glass-card";
-    card.innerHTML = `
-      <span class="fc-day">${SHORT_DAYS[d.getDay()]}</span>
-      <img src="https://openweathermap.org/img/wn/${info.icon}@2x.png" alt="${info.label}" loading="lazy"/>
-      <span class="fc-temp">${Math.round(temperature_2m_max[i])}°</span>
-      <span class="fc-low">${Math.round(temperature_2m_min[i])}°</span>
-    `;
-    grid.appendChild(card);
-  });
-}
 
 async function fetchWeatherData(lat, lon, name, country) {
   const params = new URLSearchParams({
-    latitude: lat,
-    longitude: lon,
+    latitude:        lat,
+    longitude:       lon,
     current_weather: "true",
-    hourly: "relativehumidity_2m,apparent_temperature",
-    daily: "weathercode,temperature_2m_max,temperature_2m_min",
-    timezone: "auto",
-    forecast_days: 5
+    hourly:          "relativehumidity_2m,apparent_temperature",
+    timezone:        "auto",
   });
 
   const res = await fetch(`${WEATHER_API}?${params}`);
@@ -201,7 +180,6 @@ async function fetchWeatherData(lat, lon, name, country) {
 
   hideLoader();
   renderCurrent(data, name, country);
-  renderForecast(data);
   showWeather();
   cityInput.value = "";
 }
